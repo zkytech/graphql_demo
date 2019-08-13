@@ -1,0 +1,20 @@
+directive @role(roles:[String!]!) on FIELD_DEFINITION
+
+type Query {
+    getBookById(id: ID): Book
+    getBooksByAuthorId(author_id:ID):[Book]
+}
+
+type Book {
+    id: ID
+    name: String
+    pageNum: Int    @role(roles:["ADMIN"])
+    authorId: ID    @role(roles:["ADMIN"])
+    author:Author
+}
+
+type Author{
+    id:ID   @role(roles:["ADMIN"])
+    name:String
+    age:Int @role(roles:["ADMIN"])
+}
